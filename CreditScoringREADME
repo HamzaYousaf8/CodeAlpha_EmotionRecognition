@@ -1,0 +1,151 @@
+# 💳 Credit Scoring Model — CodeAlpha ML Internship
+
+> **Task 1 — Predict an individual's creditworthiness using past financial data.**
+
+---
+
+## 📌 Project Overview
+
+This project builds a **Credit Scoring Model** that predicts whether a person is likely to default on a loan based on their financial history. Built as part of the **CodeAlpha Machine Learning Internship**.
+
+---
+
+## 📊 Dataset
+
+- **Name:** Give Me Some Credit
+- **Source:** [Kaggle Competition](https://www.kaggle.com/c/GiveMeSomeCredit)
+- **Size:** 150,000 rows × 11 features
+- **Target:** `SeriousDlqin2yrs` (1 = Default, 0 = No Default)
+- **Class Imbalance:** 93.32% No Default vs 6.68% Default
+
+---
+
+## 🔧 Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| Python | Core language |
+| Pandas & NumPy | Data manipulation |
+| Scikit-learn | ML models & evaluation |
+| Matplotlib & Seaborn | Visualization |
+| Joblib | Model saving |
+| Google Colab | Development environment |
+
+---
+
+## 🚀 Project Pipeline
+
+### Step 1 — Data Loading
+- Loaded dataset directly via **Kaggle API** in Google Colab
+- No local storage required
+
+### Step 2 — Exploratory Data Analysis (EDA)
+- Checked shape: **(150,000 × 11)**
+- Identified missing values:
+  - `MonthlyIncome` → 29,731 missing
+  - `NumberOfDependents` → 3,924 missing
+- Visualized target distribution
+
+### Step 3 — Data Preprocessing
+- Filled missing values with **column median**
+- Clipped outliers using 99th percentile
+- Added new feature: `DebtIncomeRatio = DebtRatio × MonthlyIncome`
+
+### Step 4 — Class Imbalance Handling
+- Used **`class_weight`** instead of SMOTE
+- Automatically calculated weights:
+  - Class 0 (No Default) → weight: **0.54**
+  - Class 1 (Default) → weight: **7.48**
+- Reason: SMOTE caused Colab session crashes on 150k rows
+
+### Step 5 — Model Training
+Trained **3 classification models** with class weights:
+1. Logistic Regression
+2. Decision Tree
+3. Random Forest
+
+### Step 6 — Evaluation
+- Metrics: Precision, Recall, F1-Score, ROC-AUC
+- Plotted ROC Curves and Confusion Matrices
+- Analyzed Feature Importance
+
+---
+
+## 📈 Results
+
+| Model | ROC-AUC | Default Recall |
+|-------|---------|----------------|
+| Logistic Regression | 0.8342 | 75% |
+| Decision Tree | 0.8480 | 77% |
+| **Random Forest** | **0.8621** ⭐ | **84%** |
+
+### 🏆 Best Model: Random Forest
+- **ROC-AUC: 0.8621**
+- Correctly identified **1,689 out of 2,005** defaulters
+
+---
+
+## 📉 Confusion Matrix Summary
+
+| Model | True Positives | False Negatives |
+|-------|---------------|-----------------|
+| Logistic Regression | 1503 | 502 |
+| Decision Tree | 1548 | 457 |
+| **Random Forest** | **1689** | **316** ✅ |
+
+---
+
+## 💡 Key Insights
+
+- **RevolvingUtilizationOfUnsecuredLines** was the most important feature
+- **NumberOfTimes90DaysLate** was 2nd most important
+- Banks prioritize **Recall over Precision** — missing a real defaulter is more costly than a false alarm
+- Low precision (~15-20%) is expected and acceptable given 6.68% default rate in real financial datasets
+
+---
+
+## 📁 Files in This Repo
+
+| File | Description |
+|------|-------------|
+| `CreditScoringTask.ipynb` | Main Colab notebook with full pipeline |
+| `CreditScoringModel.py` | Python script version |
+| `credit_scoring_model.pkl` | Saved best model (Random Forest) |
+| `scaler.pkl` | Saved StandardScaler |
+| `README.md` | Project documentation |
+
+---
+
+## ▶️ How to Run
+
+**Option 1 — Google Colab (Recommended):**
+1. Open `CreditScoringTask.ipynb` in Colab
+2. Upload your `kaggle.json` API key
+3. Run all cells in order
+
+**Option 2 — Local:**
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn joblib
+python CreditScoringModel.py
+```
+
+---
+
+## 🏢 Internship Details
+
+- **Company:** CodeAlpha
+- **Domain:** Machine Learning
+- **Task:** Task 1 — Credit Scoring Model (Compulsory)
+- **Website:** [www.codealpha.tech](https://www.codealpha.tech)
+
+---
+
+## 👤 Author
+
+**Ameer Hamza (Meeri)**
+- LinkedIn: www.linkedin.com/in/ameer-hamza-798a15326
+- GitHub: https://github.com/HamzaYousaf8
+
+---
+
+*Built with ❤️ during CodeAlpha ML Internship*
