@@ -188,8 +188,8 @@ uploaded = files.upload()  # Upload your .wav file
 ## 👤 Author
 
 **Ameer Hamza (Meeri)**
-- LinkedIn: [your-linkedin-link]
-- GitHub: [your-github-link]
+- LinkedIn: (www.linkedin.com/in/ameer-hamza-798a15326)
+- GitHub: (https://github.com/HamzaYousaf8)
 
 ---
 
